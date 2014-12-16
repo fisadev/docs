@@ -262,3 +262,30 @@ A partir de ahora, cada vez que toques cosas en tu código, para que el servidor
 .. code-block:: bash
 
     service supervisor restart
+
+Resumen de ubicaciones y cosas útiles
+-------------------------------------
+
+Al final de todo, deberías tener esta estructura de archivos:
+
+.. code-block:: bash
+
+    /opt/RAIZ_APP  # la mayoría de tus cosas están acá
+
+    /opt/RAIZ_APP/TU_REPO_CLONADO  # con el nombre que tenga tu repo
+    /opt/RAIZ_APP/venv  # el virtualenv donde corre tu proyecto
+    /opt/RAIZ_APP/gunicorn.sh  # el script que levanta gunicorn
+
+    /opt/RAIZ_APP/gunicorn.log  # log de la salida de gunicorn y tu código (ej: prints)
+    /opt/RAIZ_APP/supervisor_stdout.log  # log de la salida de supervisor
+    /opt/RAIZ_APP/supervisor_stderr.log  # log de errores de supervisor
+    /opt/RAIZ_APP/nginx_access.log  # log de accessos web generado por nginx
+    /opt/RAIZ_APP/nginx_error.log  # log de errores de nginx
+
+    /etc/nginx/sites-enabled/NOMBRE_APP_O_COMO_TE_GUSTE  # la configuración de nginx para tu sitio
+    /etc/supervisor/conf.d/NOMBRE_APP_O_COMO_TE_GUSTE.conf  # la configuración de supervisor para tu sitio
+
+Cosas a mejorar
+---------------
+
+* Las configuraciones y scripts deberían ir en el repo! Hay que actualizar los paths y demás para que sea así
