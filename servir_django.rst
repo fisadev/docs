@@ -83,7 +83,7 @@ Ir a la raiz del proyecto django y correr:
 
 .. code-block:: bash
 
-    python manage.py 0.0.0.0:8000
+    python manage.py runserver 0.0.0.0:8000
 
 Entrar por el navegador a IP_DEL_SERVIDOR:8000
 
@@ -155,7 +155,7 @@ Y rellenarlo con este contenido:
     #!/bin/bash
     cd RAIZ_A_TU_PROYECTO_DJANGO
     source RAIZ_APP/venv/bin/activate
-    RAIZ_APP/venv/bin/gunicorn NOMBREPROYECTO.wsgi:application -t 600 -b 127.0.0.1:8000 -w CANTIDAD_DE_WORKERS --user=root --group=root --log-file=RAIZ_APP/gunicorn.log 2>>RAIZ_APP/gunicorn.log
+    RAIZ_APP/venv/bin/gunicorn NOMBREPROYECTO.wsgi -t 600 -b 127.0.0.1:8000 -w CANTIDAD_DE_WORKERS --user=root --group=root --log-file=RAIZ_APP/gunicorn.log 2>>RAIZ_APP/gunicorn.log
 
 Recordá reemplazar todo lo que está con MAYUSCULAS.
 CANTIDAD_DE_WORKERS es la cantidad de workers gunicorn que queremos correr. Para un server físico, normalmente se usa el doble de la cantidad de núcleos que tiene el procesador + 1 (ej: si tiene 4 núcleos, ponemos 9). Para algo como un amazon o digital ocean, con 3 estaríamos bien.
@@ -236,6 +236,11 @@ Correr:
 
     service supervisor restart
     service nginx restart
+
+Listo! Instalación inicial terminada
+------------------------------------
+
+Entrando con el navegador, el sitio debería estar andando.
 
 Cada vez que toques código
 --------------------------
