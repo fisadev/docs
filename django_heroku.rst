@@ -129,7 +129,7 @@ Crear sitio (aplicación) en heroku por primera vez
 
 Tu proyecto ya está listo, solo queda decirle a heroku que lo levante.
 
-Lo primero (y esto lo hacemos solo una ves), creamos una aplicación en heroku. Para eso, ubicate en la **raiz de tu repo**, y ejecutá:
+Lo primero (y esto lo hacemos solo una vez), creamos una aplicación en heroku. Para eso, ubicate en la **raiz de tu repo**, y ejecutá:
 
 .. code-block:: bash
 
