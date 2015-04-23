@@ -156,6 +156,7 @@ Y ahora podemos mandar el código de nuestro sitio, y heroku lo va a levantar de
 Si mirás bien toda la salida de eso (y no falló nada), vas a ver que en un punto dice algo como esto:
 
 .. code-block::
+
     remote: -----> Launching... done, v7
     remote:        https://lit-ridge-5779.herokuapp.com/ deployed to Heroku
 
