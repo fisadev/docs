@@ -58,7 +58,7 @@ Si tu proyecto django no está en la raiz de tu repositorio, modificá ese archi
 
 .. code-block::
 
-    web: cd directorio/al/proyecto && gunicorn miproyecto.wsgi --log-file -
+    web: cd directorio/del/proyecto && gunicorn miproyecto.wsgi --log-file -
 
 
 Para probar si tu ``Procfile`` funciona correctamente, ubicate en la raiz de tu **repositorio** y ejecutá esto:
@@ -106,7 +106,7 @@ Dentro de ese mismo if también podés customizar cualquier setting que quieras 
 Modificar el WSGI de nuestro proyecto
 =====================================
 
-Y por último, hay que modificar el archivo ``wsgi.py`` que está junto al ``settings.py``, que es el archivo que se utiliza para ejecutar conectar django con el server web. Abrilo, borrá la línea que dice:
+Y por último, hay que modificar el archivo ``wsgi.py`` que está junto al ``settings.py``, que es el archivo que se utiliza para conectar django con el server web. Abrilo, borrá la línea que dice:
 
 .. code-block:: python
 
