@@ -4,7 +4,7 @@ Deployar django 1.8 a Heroku
 Asumimos que
 ============
 
-* Ya tenés tu proyecto django, que funciona localmente (o sea, hacés un ``runserver`` y podés usarla en tu máquina).
+* Ya tenés tu proyecto django, que funciona localmente (o sea, hacés un ``runserver`` y podés usarlo en tu máquina).
 * Estás usando django 1.8.x
 * Tu proyecto django está en un repositorio git.
 * Tenés un ``requirements.txt`` en **la raiz** repo, con las dependencias python de tu proyecto, donde figura django y cualquier otra cosa que haga falta instalar con pip para que funcione, y que se puede usar con un ``pip install -r requirements.txt``.  
