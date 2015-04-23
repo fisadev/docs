@@ -140,7 +140,7 @@ Y además vamos a setear una configuración en el server para que nuestro django
 
 .. code-block:: bash
 
-    heroku config:set HEROKU=1                                                                                                                      herokutest/git/master 
+    heroku config:set HEROKU=1
 
 
 Actualizar y correr nuestro sitio
