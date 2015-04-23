@@ -162,7 +162,7 @@ Si mirás bien toda la salida de eso (y no falló nada), vas a ver que en un pun
 
 
 (En tu proyecto seguramente van a cambiar algunos números y nombres)
-Entrando a esa url, si todo funcionó bien, debería estar tu sitio andando :)
+Entrando a esa url, si todo funcionó bien, deberias ver tu sitio andando :)
 
 Cada vez que modifiques tu código, simplemente commitealo y después ejecutá ese mismo push para que heroku tome los cambios y reinicie el servidor.
 
