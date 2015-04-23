@@ -196,4 +196,6 @@ Podés ver los logs de la aplicación corriendo:
     heroku logs
 
 
+Con el comando ``heroku run`` podés correr comandos arbitrarios en tu server, y ver la salida.
+
 Y desde `el panel de heroku <https://dashboard.heroku.com/apps>`_ podés ver mucha más info y administrar tu aplicación.
