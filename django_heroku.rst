@@ -7,7 +7,7 @@ Asumimos que
 * Ya tenés tu proyecto django, que funciona localmente (o sea, hacés un ``runserver`` y podés usarlo en tu máquina).
 * Estás usando django 1.8.x
 * Tu proyecto django está en un repositorio git.
-* Tenés un ``requirements.txt`` en **la raiz** de tu repo, con las dependencias python de tu proyecto, donde figura django y cualquier otra cosa que haga falta instalar con pip para que funcione, y que se puede usar con un ``pip install -r requirements.txt``.  
+* Tenés un ``requirements.txt`` en **la raiz** de tu repo, con las dependencias python de tu proyecto, donde figura django y cualquier otra cosa que haga falta instalar con pip para que funcione, y que se puede usar con un ``pip install -r requirements.txt``. El formato dentro del requirements debería ser, por ejemplo, ``Django==1.8``, la versión de cada cosa puede verse usando ``pip list``.
 * Te hiciste una cuenta en `Heroku <http://heroku.com>`_ y recordás tu usuario y contraseña.
 
 
@@ -195,6 +195,14 @@ Podés ver los logs de la aplicación corriendo:
 .. code-block:: bash
 
     heroku logs
+
+También podés probar la aplicación antes de mandarla al sitio con:
+
+.. code-block:: bash
+
+    heroku local
+
+Con esto se va a levantar localmente luego de bajar un plugin, de manera automática.
 
 
 Con el comando ``heroku run`` podés correr comandos arbitrarios en tu server, y ver la salida.
