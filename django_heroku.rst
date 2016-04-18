@@ -4,10 +4,10 @@ Deployar django 1.8 a Heroku
 Asumimos que
 ============
 
-* Ya tenés tu proyecto django, que funciona localmente (o sea, hacés un ``runserver`` y podés usarla en tu máquina).
+* Ya tenés tu proyecto django, que funciona localmente (o sea, hacés un ``runserver`` y podés usarlo en tu máquina).
 * Estás usando django 1.8.x
 * Tu proyecto django está en un repositorio git.
-* Tenés un ``requirements.txt`` en **la raiz** repo, con las dependencias python de tu proyecto, donde figura django y cualquier otra cosa que haga falta instalar con pip para que funcione, y que se puede usar con un ``pip install -r requirements.txt``.  
+* Tenés un ``requirements.txt`` en **la raiz** de tu repo, con las dependencias python de tu proyecto, donde figura django y cualquier otra cosa que haga falta instalar con pip para que funcione, y que se puede usar con un ``pip install -r requirements.txt``. (Recordá que es posible especificar las versiones de tus dependencias en el ``requirements.txt``. Por ejemplo, ``Django==1.8``. Con ``pip freeze`` podés consultar las versiones que tenés instaladas actualmente).
 * Te hiciste una cuenta en `Heroku <http://heroku.com>`_ y recordás tu usuario y contraseña.
 
 
@@ -58,7 +58,7 @@ Si tu proyecto django no está en la raiz de tu repositorio, modificá ese archi
 
 .. code-block::
 
-    web: cd directorio/al/proyecto && gunicorn miproyecto.wsgi --log-file -
+    web: cd directorio/del/proyecto && gunicorn miproyecto.wsgi --log-file -
 
 
 Para probar si tu ``Procfile`` funciona correctamente, ubicate en la raiz de tu **repositorio** y ejecutá esto:
@@ -106,7 +106,7 @@ Dentro de ese mismo if también podés customizar cualquier setting que quieras 
 Modificar el WSGI de nuestro proyecto
 =====================================
 
-Y por último, hay que modificar el archivo ``wsgi.py`` que está junto al ``settings.py``, que es el archivo que se utiliza para ejecutar conectar django con el server web. Abrilo, borrá la línea que dice:
+Y por último, hay que modificar el archivo ``wsgi.py`` que está junto al ``settings.py``, que es el archivo que se utiliza para conectar django con el server web. Abrilo, borrá la línea que dice:
 
 .. code-block:: python
 
@@ -129,7 +129,7 @@ Crear sitio (aplicación) en heroku por primera vez
 
 Tu proyecto ya está listo, solo queda decirle a heroku que lo levante.
 
-Lo primero (y esto lo hacemos solo una ves), creamos una aplicación en heroku. Para eso, ubicate en la **raiz de tu repo**, y ejecutá:
+Primero (y esto lo hacemos solo una vez), creamos una aplicación en heroku. Para eso, ubicate en la **raiz de tu repo**, y ejecutá:
 
 .. code-block:: bash
 
@@ -140,7 +140,7 @@ Y además vamos a setear una configuración en el server para que nuestro django
 
 .. code-block:: bash
 
-    heroku config:set HEROKU=1                                                                                                                      herokutest/git/master 
+    heroku config:set HEROKU=1
 
 
 Actualizar y correr nuestro sitio
@@ -156,12 +156,13 @@ Y ahora podemos mandar el código de nuestro sitio, y heroku lo va a levantar de
 Si mirás bien toda la salida de eso (y no falló nada), vas a ver que en un punto dice algo como esto:
 
 .. code-block::
+
     remote: -----> Launching... done, v7
     remote:        https://lit-ridge-5779.herokuapp.com/ deployed to Heroku
 
 
 (En tu proyecto seguramente van a cambiar algunos números y nombres)
-Entrando a esa url, si todo funcionó bien, debería estar tu sitio andando :)
+Entrando a esa url, si todo funcionó bien, deberias ver tu sitio andando :)
 
 Cada vez que modifiques tu código, simplemente commitealo y después ejecutá ese mismo push para que heroku tome los cambios y reinicie el servidor.
 
@@ -194,6 +195,14 @@ Podés ver los logs de la aplicación corriendo:
 .. code-block:: bash
 
     heroku logs
+
+También podés probar la aplicación antes de mandarla al sitio con:
+
+.. code-block:: bash
+
+    heroku local
+
+Con esto se va a levantar localmente luego de bajar un plugin, de manera automática.
 
 
 Con el comando ``heroku run`` podés correr comandos arbitrarios en tu server, y ver la salida.
