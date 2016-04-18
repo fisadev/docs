@@ -65,7 +65,7 @@ Para probar si tu ``Procfile`` funciona correctamente, ubicate en la raiz de tu 
 
 .. code-block:: bash
 
-    foreman start
+    heroku local web
 
 
 No debería mostrar ningún error, y la última linea del resultado debería decir algo como esto:
