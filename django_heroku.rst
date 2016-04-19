@@ -200,7 +200,7 @@ También podés probar la aplicación antes de mandarla al sitio con:
 
 .. code-block:: bash
 
-    heroku local
+    heroku local web
 
 Con esto se va a levantar localmente luego de bajar un plugin, de manera automática.
 
