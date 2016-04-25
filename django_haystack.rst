@@ -161,8 +161,7 @@ Y luego agregamos nuestro template de búsqueda en ``sitio/templates/search/sear
                 <h3>Resultados:</h3>
 
                 {% for result in page.object_list %}
-                    <p>{{ result.titulo }}, {{ result.fecha }}</a>
-                    </p>
+                    <p>{{ result.titulo }}, {{ result.fecha }}</p>
                 {% empty %}
                     <p>No se encontraron noticias.</p>
                 {% endfor %}
