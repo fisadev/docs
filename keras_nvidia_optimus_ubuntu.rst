@@ -5,6 +5,7 @@ I broke so many things trying to get this to work, that I need to write it down 
 
 This tutorial explains how to get a Keras neural network to train using your gpu, or any Theano related code for that matter, but for the special scenario of having a Nvidia Optimus enabled gpu running under Ubuntu 16.04. 
 Other scenarios:
+
 * Under Ubuntu 16.04 and you have a Nvidia gpu which is not Optimus enabled? then some things might work, but the "Nvidia gpu drivers" section won't be useful to you.
 * Under a different distro or Ubuntu version? I would **not** recommend trying this. 
 * Have an non-Nvidia gpu? this **won't work** at all.
@@ -54,9 +55,9 @@ Thing is, CUDA has no Ubuntu 16.04 package at the moment.
 
 But we can make things work. This is Linux, after all (`source <http://askubuntu.com/questions/799184/how-can-i-install-cuda-on-ubuntu-16-04>`_):
 
-    1. Download CUDA from the `Nvidia website <https://developer.nvidia.com/cuda-downloads>`. Choose the Ubuntu 15.04 "runfile (local)" version.
-    2. Check the md5 sum: md5sum cuda_7.5.18_linux.run. Only continue if it is correct.
-    3. Run the installer and follow the instructions: ``sudo sh cuda_7.5.18_linux.run --override``. **Make sure** that you say **y** for the symbolic link, and **n** to the video drivers installation.
+1. Download CUDA from the `Nvidia website <https://developer.nvidia.com/cuda-downloads>`. Choose the Ubuntu 15.04 "runfile (local)" version.
+2. Check the md5 sum: md5sum cuda_7.5.18_linux.run. Only continue if it is correct.
+3. Run the installer and follow the instructions: ``sudo sh cuda_7.5.18_linux.run --override``. **Make sure** that you say **y** for the symbolic link, and **n** to the video drivers installation.
 
 Don't worry about the warning related to the non-installation of the video drivers. 
 The script is somewhat dumb and doesn't detect the drivers we installed on the previous section.
