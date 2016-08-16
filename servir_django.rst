@@ -87,7 +87,7 @@ Ir a la raiz del proyecto django y correr:
 
 Entrar por el navegador a IP_DEL_SERVIDOR:8000
 
-Pero seguramente para que tu sitio ande bien vas a tener que hacer un ``syncdb`` para crear las tablas, configurar la base de datos, etc.
+Pero seguramente para que tu sitio ande bien vas a tener que hacer un ``migrate`` para crear las tablas, configurar la base de datos, etc.
 Resolvé en este punto todas esas cosas hasta que al hacer un runserver y entrar por navegador, tu sitio ande bien.
 Cuando ande bien, matá el runserver con Ctrl-c, no lo vamos a necesitar más.
 
@@ -254,6 +254,14 @@ A partir de ahora, cada vez que toques cosas en tu código, para que el servidor
 .. code-block:: bash
 
     source RAIZ_APP/venv/bin/activate
+
+* Corres migraciones si es necesario
+
+.. code-block:: bash
+
+    cd RAIZ_A_TU_PROYECTO_DJANGO
+    python manage.py migrate
+
 
 * Corres un collectstatic
 
