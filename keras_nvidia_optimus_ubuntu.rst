@@ -126,3 +126,9 @@ To achieve that, run the script like this (inside your virtualenv):
 
 If everything is working, it should quickly run and output something which ends with: ``Used the gpu``.
 If instead it takes a long time (~1 minute) and ends with ``Used the cpu``, then something is not working.
+
+If that worked, then you can try the full example and play a little with it (should be able to run all lines without errors):
+
+.. code:: bash
+
+    THEANO_FLAGS="mode=FAST_RUN,device=gpu,floatX=float32,cuda.root=/usr/local/cuda/" ipython notebook
