@@ -16,7 +16,7 @@ Enough presentations, lets get to work.
 ==============
 
 We will need a Keras example to check if things are working well. 
-Use the code from `this repo<https://github.com/fisadev/keras_experiments>`_. 
+Use the code from `this repo <https://github.com/fisadev/keras_experiments>`_. 
 
 In that repo you will find a keras experiment (in the ipython notebook), and a small script to check for gpu usage from Theano. 
 Both will be quite useful.
