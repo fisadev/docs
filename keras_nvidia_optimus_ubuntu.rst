@@ -36,11 +36,11 @@ But we can get things working, with some small annoyances:
 1. Disconnect any external/secondary monitors.
 2. Install video and optimus drivers: ``sudo apt install nvidia-361 nvidia-prime``
 3. Reboot your machine and login.
-4. Open the Nvidia X Server Settings app, go to the "PRIME Profiles" section and choose "NVIDIA".
+4. Open the "Nvidia X Server Settings" app, go to the "PRIME Profiles" section and choose "NVIDIA".
 5. Close the settings app.
 6. Logout and login again, so the profile change can take effect.
 
-**A small annoyance**: while the NVIDIA profile is active you cannot (at the moment) use a secondary screen. 
+**A small annoyance**: while the "NVIDIA" profile is active you cannot (at the moment) use a secondary screen. 
 It will crash your X server.
 
 **Important**: remember to go back to the "Intel" profile whenever you don't want to use your gpu anymore, logout and login back for it to take effect.
