@@ -71,43 +71,17 @@ CUDA requires gcc to be a version up to 4.9.
 Later versions won't work.
 Ubuntu 16.04 ships with gcc 5.4.
 
-But we can have both versions side by side, and choose which one is active at any given time (thanks to the `Theano docs <http://theano.readthedocs.io/en/latest/install_ubuntu.html>`_).
-**Only for the first time**, we need to do this to install the older gcc and g++ compilers, and add them as "alternatives" to the newer one:
+But we can have both versions side by side, and trick CUDA to use the older versions with just some simple symlinks (thanks to `charlie <https://twitter.com/_zzzoom_/status/765720104868904964>`_ for the tip, the old solution was far more complicated).
 
 .. code:: bash
 
     sudo apt-get install gcc-4.9 g++-4.9
+    sudo ln -s /usr/bin/gcc-4.9  /usr/local/cuda/bin/gcc
+    sudo ln -s /usr/bin/g++-4.9  /usr/local/cuda/bin/g++
 
-    sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 20
-    sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 10
-
-    sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.9 20
-    sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-5 10
-
-    sudo update-alternatives --install /usr/bin/cc cc /usr/bin/gcc 30
-    sudo update-alternatives --set cc /usr/bin/gcc
-
-    sudo update-alternatives --install /usr/bin/c++ c++ /usr/bin/g++ 30
-    sudo update-alternatives --set c++ /usr/bin/g++
-
-    # Work around a glibc bug
+    # Work around a glibc bug (according to the theano docs)
     echo -e "\n[nvcc]\nflags=-D_FORCE_INLINES\n" >> ~/.theanorc
 
-
-Now we have the older compilers as "alternatives". 
-And they have been chosen as the default ones, which will serve our purposes.
-
-In the future, whenever you want to pick the active alternative, run these two commands:
-
-.. code:: bash
-
-        sudo update-alternatives --config gcc
-        sudo update-alternatives --config g++
-
-
-**Important**: I would recommend switching back to the newer versions when you are not working with keras on the gpu. 
-Just in case, as they are the ones Ubuntu expects. 
-Do that with those two mentioned commands.
 
 Testing
 =======
