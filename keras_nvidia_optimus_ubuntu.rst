@@ -18,8 +18,8 @@ Enough presentations, lets get to work.
 We will need a Keras example to check if things are working well. 
 Use the code from `this repo <https://github.com/fisadev/keras_experiments>`_. 
 
-In that repo you will find a keras experiment (in the ipython notebook), and a small script to check for gpu usage from Theano. 
-Both will be quite useful.
+In that repo you will find a keras experiment (in one of the ipython notebooks), and a small script to check for gpu usage from Theano. 
+Both will be useful.
 
 **Remember** to create a virtualenv and **install its dependencies** (from the ``requirements.txt``).
 You can use wheels to speed up the process. And it requires **python 3**.
@@ -27,7 +27,7 @@ You can use wheels to speed up the process. And it requires **python 3**.
 1. Nvidia gpu drivers
 =====================
 
-We need Ubunto to be able to use our gpu. 
+We need Ubuntu to be able to use our gpu. 
 To achieve that, we need both the gpu drivers and the Optimus drivers.
 Thing is, Optimus drivers are kind of broken right now under Ubuntu 16.04.
 
