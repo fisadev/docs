@@ -62,8 +62,8 @@ But we can make things work. This is Linux, after all (thanks to Martin Thoma's 
 Don't worry about the warning related to the non-installation of the video drivers. 
 The script is somewhat dumb and doesn't detect the drivers we installed on the previous section.
 
-Gcc and G++ versions
-====================
+3. Gcc and G++ versions
+=======================
 
 Guess what? Yes, more problems.
 
@@ -83,8 +83,8 @@ But we can have both versions side by side, and trick CUDA to use the older vers
     echo -e "\n[nvcc]\nflags=-D_FORCE_INLINES\n" >> ~/.theanorc
 
 
-Testing
-=======
+4. Testing
+==========
 
 Done! You should be able to run Theano things (including Keras neural networks) using your gpu.
 
