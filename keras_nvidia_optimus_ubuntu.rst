@@ -56,7 +56,7 @@ Thing is, CUDA has no Ubuntu 16.04 package at the moment.
 But we can make things work. This is Linux, after all (thanks to Martin Thoma's `answer <http://askubuntu.com/questions/799184/how-can-i-install-cuda-on-ubuntu-16-04>`_):
 
 1. Download CUDA from the `Nvidia website <https://developer.nvidia.com/cuda-downloads>`_. Choose the Ubuntu 15.04 "runfile (local)" version.
-2. Check the md5 sum: md5sum cuda_7.5.18_linux.run. Only continue if it is correct.
+2. Check the md5 sum with: ``md5sum cuda_7.5.18_linux.run``. Only continue if it is correct.
 3. Run the installer and follow the instructions: ``sudo sh cuda_7.5.18_linux.run --override``. **Make sure** that you say **y** for the symbolic link, and **n** to the video drivers installation.
 
 Don't worry about the warning related to the non-installation of the video drivers. 
