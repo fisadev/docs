@@ -95,7 +95,8 @@ Primero que nada, asegurate de tener seteada la setting ``STATIC_ROOT``. Si no l
 
 .. code-block:: python
 
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+    STATIC_ROOT = os.path.join(BASE_DIR, 'static_server_files')
+
 
 Y agregá al final de tu ``settings.py`` esto:
 
