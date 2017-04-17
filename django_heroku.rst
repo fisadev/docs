@@ -142,7 +142,10 @@ Primero (y esto lo hacemos solo una vez), creamos una aplicación en heroku. Par
 
 .. code-block:: bash
 
-    heroku create
+    heroku create nombre-de-tu-proyecto
+
+
+Reemplazando ``nombre-de-tu-proyecto`` por el nombre que quieras que tu app tenga en Heroku.
 
 
 Y además vamos a setear una configuración en el server para que nuestro django se de cuenta de que está dentro de heroku:
