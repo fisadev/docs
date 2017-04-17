@@ -61,7 +61,15 @@ Si tu proyecto django no está en la raiz de tu repositorio, modificá ese archi
     web: cd directorio/del/proyecto && gunicorn miproyecto.wsgi --log-file -
 
 
-Para probar si tu ``Procfile`` funciona correctamente, ubicate en la raiz de tu **repositorio** y ejecutá esto:
+**Si estás usando python 3**, además creá un segundo archivo llamado ``runtime.txt`` en la misma ubicación que ``Procfile``, con este contenido:
+
+
+.. code-block::
+
+    python-3.6.1
+
+
+Para probar si tu ``Procfile`` (y ``runtime.txt``) funciona correctamente, ubicate en la raiz de tu **repositorio** y ejecutá esto:
 
 .. code-block:: bash
 
