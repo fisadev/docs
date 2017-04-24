@@ -212,7 +212,7 @@ Y luego modificamos nuestro ``settings.py``. En la sección donde cambiábamos l
 
 .. code-block:: python
 
-    from urlparse import urlparse
+    from urllib.parse import urlparse
 
     es = urlparse(os.environ.get('SEARCHBOX_URL') or 'http://127.0.0.1:9200/')
     port = es.port or 80
