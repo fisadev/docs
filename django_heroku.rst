@@ -33,10 +33,10 @@ Y ahora las cosas que vamos a usar desde dentro de django para "engancharlo" con
 
 .. code-block:: bash
 
-    sudo pip install django-toolbelt
+    sudo pip install django-toolbelt whitenoise
 
 
-**Además** de instalarlo, agreguá ``django-toolbelt`` al ``requirements.txt``.
+**Además** de instalarlo, agreguá ``django-toolbelt`` y ``whitenoise`` al ``requirements.txt``.
 
 
 Crear archivo Procfile
@@ -93,6 +93,8 @@ Es necesario configurar algunas settings de nuestro proyecto (``settings.py``) p
 
 Primero que nada, asegurate de tener seteada la setting ``STATIC_ROOT``. Si no la tenés, deberías agregarla con algo como esto:
 
+(se suele agregar debajo de la setting ``STATIC_URL``, porque están muy relacionadas)
+
 .. code-block:: python
 
     STATIC_ROOT = os.path.join(BASE_DIR, 'static_server_files')
@@ -108,6 +110,8 @@ Y agregá al final de tu ``settings.py`` esto:
         DATABASES['default'] = dj_database_url.config()
         ALLOWED_HOSTS = ['*']
         SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+        MIDDLEWARE.insert(0, 'whitenoise.middleware.WhiteNoiseMiddleware')
+        STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 
 Dentro de ese mismo if también podés customizar cualquier setting que quieras que tenga un valor distinto al correr en heroku (ej: ``DEBUG = False``, etc.).
