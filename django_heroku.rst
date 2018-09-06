@@ -14,12 +14,11 @@ Asumimos que
 Instalar dependencias
 =====================
 
-Primero que nada se necesitan las herramientas de heroku, y estas están hechas con ruby. En un ubuntu, basta con hacer:
+Primero que nada se necesitan las herramientas de heroku. En un ubuntu, basta con hacer:
 
 .. code-block:: bash
 
-    sudo apt-get install ruby
-    wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
+    sudo snap install --classic heroku
 
 
 Si esto se instaló bien deberías poder ejecutar lo siguiente, que te pida tus credenciales, y loguearte:
@@ -33,10 +32,10 @@ Y ahora las cosas que vamos a usar desde dentro de django para "engancharlo" con
 
 .. code-block:: bash
 
-    sudo pip install django-toolbelt whitenoise
+    sudo pip install django-heroku gunicorn
 
 
-**Además** de instalarlo, agreguá ``django-toolbelt`` y ``whitenoise`` al ``requirements.txt``.
+**Además** de instalarlos, agreguá ``django-heroku`` y ``gunicorn`` al ``requirements.txt``.
 
 
 Crear archivo Procfile
@@ -66,7 +65,7 @@ Si tu proyecto django no está en la raiz de tu repositorio, modificá ese archi
 
 .. code-block::
 
-    python-3.6.1
+    python-3.6.6
 
 
 Para probar si tu ``Procfile`` (y ``runtime.txt``) funciona correctamente, ubicate en la raiz de tu **repositorio** y ejecutá esto:
@@ -91,50 +90,20 @@ Modificaciones a las settings de nuestro proyecto
 
 Es necesario configurar algunas settings de nuestro proyecto (``settings.py``) para que corra bien dentro de heroku.
 
-Primero que nada, asegurate de tener seteada la setting ``STATIC_ROOT``. Si no la tenés, deberías agregarla con algo como esto:
+Por suerte el paquete ``django-heroku`` hace esto de forma automágica. Solo tenemos que hacer dos cosas:
 
-(se suele agregar debajo de la setting ``STATIC_URL``, porque están muy relacionadas)
-
-.. code-block:: python
-
-    STATIC_ROOT = os.path.join(BASE_DIR, 'static_server_files')
-
-
-Y agregá al final de tu ``settings.py`` esto:
+Agregar esto al inicio de nuestro ``settings.py`` (después de los imports ya existentes):
 
 .. code-block:: python
 
-    if os.environ.get('HEROKU', False):
-        # settings especificas para heroku
-        import dj_database_url
-        DATABASES['default'] = dj_database_url.config()
-        ALLOWED_HOSTS = ['*']
-        SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
-        MIDDLEWARE.insert(0, 'whitenoise.middleware.WhiteNoiseMiddleware')
-        STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    import django_heroku
 
 
-Dentro de ese mismo if también podés customizar cualquier setting que quieras que tenga un valor distinto al correr en heroku (ej: ``DEBUG = False``, etc.).
-
-Modificar el WSGI de nuestro proyecto
-=====================================
-
-Y por último, hay que modificar el archivo ``wsgi.py`` que está junto al ``settings.py``, que es el archivo que se utiliza para conectar django con el server web. Abrilo, borrá la línea que dice:
+Y agregar esto al final:
 
 .. code-block:: python
 
-    application = get_wsgi_application()
-
-
-Y en su lugar poné esto:
-
-.. code-block:: python
-
-    if os.environ.get('HEROKU', False):
-        from dj_static import Cling
-        application = Cling(get_wsgi_application())
-    else:
-        application = get_wsgi_application()
+    django_heroku.settings(locals())
 
 
 Crear sitio (aplicación) en heroku por primera vez
@@ -142,7 +111,7 @@ Crear sitio (aplicación) en heroku por primera vez
 
 Tu proyecto ya está listo, solo queda decirle a heroku que lo levante.
 
-Primero (y esto lo hacemos solo una vez), creamos una aplicación en heroku. Para eso, ubicate en la **raiz de tu repo**, y ejecutá:
+Simplemente creamos una aplicación en heroku (y esto lo hacemos solo una vez). Para eso, ubicate en la **raiz de tu repo**, y ejecutá:
 
 .. code-block:: bash
 
@@ -150,13 +119,6 @@ Primero (y esto lo hacemos solo una vez), creamos una aplicación en heroku. Par
 
 
 Reemplazando ``nombre-de-tu-proyecto`` por el nombre que quieras que tu app tenga en Heroku.
-
-
-Y además vamos a setear una configuración en el server para que nuestro django se de cuenta de que está dentro de heroku:
-
-.. code-block:: bash
-
-    heroku config:set HEROKU=1
 
 
 Actualizar y correr nuestro sitio
@@ -218,9 +180,7 @@ También podés probar la aplicación antes de mandarla al sitio con:
 
     heroku local web
 
-Con esto se va a levantar localmente luego de bajar un plugin, de manera automática.
 
-
-Con el comando ``heroku run`` podés correr comandos arbitrarios en tu server, y ver la salida.
+Con el comando ``heroku run`` podés correr comandos arbitrarios en tu server, y ver la salida, e incluso interactuar (por ejemplo, probablemente lo necesites para correr tu creación del superuser).
 
 Y desde `el panel de heroku <https://dashboard.heroku.com/apps>`_ podés ver mucha más info y administrar tu aplicación.
