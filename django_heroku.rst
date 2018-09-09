@@ -120,6 +120,14 @@ Simplemente creamos una aplicación en heroku (y esto lo hacemos solo una vez). 
 
 Reemplazando ``nombre-de-tu-proyecto`` por el nombre que quieras que tu app tenga en Heroku.
 
+Y luego, le pedimos a heroku poder usar una base de datos dentro de ese mismo proyecto:
+
+.. code-block:: bash
+
+    heroku addons:create heroku-postgresql:hobby-dev
+
+
+(``hobby-dev`` es el nombre del plan gratuito de postgresql en heroku. Si queremos, podemos elegir otro que estemos dispuestos a pagar)
 
 Actualizar y correr nuestro sitio
 =================================
