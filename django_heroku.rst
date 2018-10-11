@@ -1,4 +1,4 @@
-Deployar django 1.10 a Heroku
+Deployar django 2.0 a Heroku
 ============================
 
 Asumimos que
