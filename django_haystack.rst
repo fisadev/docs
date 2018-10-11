@@ -15,12 +15,11 @@ Primero que nada se necesitan instalar haystack y whoosh:
 
 .. code-block:: bash
 
-    sudo pip install whoosh git+https://github.com/django-haystack/django-haystack
+    sudo pip install whoosh django-haystack
 
 
-**Además** de instalarlo, agreguá ``git+https://github.com/django-haystack/django-haystack`` y ``whoosh`` al ``requirements.txt``.
+**Además** de instalarlo, agreguá ``django-haystack`` y ``whoosh`` al ``requirements.txt``.
 
-(estamos instalando desde github, porque el último release estable todavía no soporta django 1.9)
 
 Configs básicas en django
 =========================
@@ -132,7 +131,7 @@ Primero agregamos a nuestras urls:
 
 .. code-block:: python
 
-    url(r'^search/', include('haystack.urls')),
+    path('search/', include('haystack.urls')),
 
 
 Y luego agregamos nuestro template de búsqueda en ``sitio/templates/search/search.html``, con este contenido:
@@ -201,32 +200,34 @@ Para usarlo, lo primero que necesitamos es agregar el addon a nuestra aplicació
     heroku addons:create searchbox
 
 
-Y además, van a necesitar una nueva dependencia. Agreguen esto al ``requirements.txt``:
+Y además, van a necesitar un par de dependencias nuevas. Agreguen esto al ``requirements.txt``:
 
 .. code-block::
 
     elasticsearch
+    django-haystack-elasticsearch5
 
 
-Y luego modificamos nuestro ``settings.py``. En la sección donde cambiábamos las settings específicas para heroku (``if os.environ.get('HEROKU', False) ...``), agregamos esto:
+Y luego modificamos nuestro ``settings.py``, agregando esto al final:
 
 .. code-block:: python
 
-    from urllib.parse import urlparse
+    if os.environ.get('SEARCHBOX_URL'):
+        from urllib.parse import urlparse
 
-    es = urlparse(os.environ.get('SEARCHBOX_URL') or 'http://127.0.0.1:9200/')
-    port = es.port or 80
+        es = urlparse(os.environ.get('SEARCHBOX_URL') or 'http://127.0.0.1:9200/')
+        port = es.port or 80
 
-    HAYSTACK_CONNECTIONS = {
-        'default': {
-            'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
-            'URL': es.scheme + '://' + es.hostname + ':' + str(port),
-            'INDEX_NAME': 'documents',
-        },
-    }
+        HAYSTACK_CONNECTIONS = {
+            'default': {
+                'ENGINE': 'haystack_elasticsearch5.Elasticsearch5SearchEngine',
+                'URL': es.scheme + '://' + es.hostname + ':' + str(port),
+                'INDEX_NAME': 'documents',
+            },
+        }
 
-    if es.username:
-        HAYSTACK_CONNECTIONS['default']['KWARGS'] = {"http_auth": es.username + ':' + es.password}
+        if es.username:
+            HAYSTACK_CONNECTIONS['default']['KWARGS'] = {"http_auth": es.username + ':' + es.password}
 
 
 Con eso ya podemos usar haystack en heroku. Pero recuerden que además de pushear para hacer el deploy, van a tener que correr los comandos para crear los índices en heroku, usando ``heroku run`` como vimos en la doc de deploy.
