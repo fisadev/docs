@@ -5,7 +5,7 @@ Asumimos que
 ============
 
 * Ya tenés tu proyecto django, que funciona localmente (o sea, hacés un ``runserver`` y podés usarlo en tu máquina).
-* Estás usando django 1.10.x o superior.
+* Estás usando django 2.0.x o superior.
 * Tenés un ``requirements.txt`` con las dependencias python de tu proyecto, donde figura django y cualquier otra cosa que haga falta instalar con pip para que funcione, y que se puede usar con un ``pip install -r requirements.txt``. (Recordá que es posible especificar las versiones de tus dependencias en el ``requirements.txt``. Por ejemplo, ``Django==1.9``. Con ``pip freeze`` podés consultar las versiones que tenés instaladas actualmente).
 
 Instalar dependencias
@@ -197,7 +197,7 @@ Para usarlo, lo primero que necesitamos es agregar el addon a nuestra aplicació
 
 .. code-block:: bash
 
-    heroku addons:create searchbox
+    heroku addons:create searchbox:starter --es_version=2
 
 
 Y además, van a necesitar un par de dependencias nuevas. Agreguen esto al ``requirements.txt``:
@@ -205,7 +205,7 @@ Y además, van a necesitar un par de dependencias nuevas. Agreguen esto al ``req
 .. code-block::
 
     elasticsearch
-    django-haystack-elasticsearch5
+    certifi
 
 
 Y luego modificamos nuestro ``settings.py``, agregando esto al final:
@@ -213,21 +213,13 @@ Y luego modificamos nuestro ``settings.py``, agregando esto al final:
 .. code-block:: python
 
     if os.environ.get('SEARCHBOX_URL'):
-        from urllib.parse import urlparse
-
-        es = urlparse(os.environ.get('SEARCHBOX_URL') or 'http://127.0.0.1:9200/')
-        port = es.port or 80
-
         HAYSTACK_CONNECTIONS = {
             'default': {
-                'ENGINE': 'haystack_elasticsearch5.Elasticsearch5SearchEngine',
-                'URL': es.scheme + '://' + es.hostname + ':' + str(port),
+                'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+                'URL': os.environ.get('SEARCHBOX_URL'),
                 'INDEX_NAME': 'documents',
             },
         }
-
-        if es.username:
-            HAYSTACK_CONNECTIONS['default']['KWARGS'] = {"http_auth": es.username + ':' + es.password}
 
 
 Con eso ya podemos usar haystack en heroku. Pero recuerden que además de pushear para hacer el deploy, van a tener que correr los comandos para crear los índices en heroku, usando ``heroku run`` como vimos en la doc de deploy.
