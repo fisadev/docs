@@ -33,7 +33,10 @@ Y ahora las cosas que vamos a usar desde dentro de django para "engancharlo" con
 
 .. code-block:: bash
 
-    sudo pip install django-heroku gunicorn
+    pip3 install django-heroku gunicorn --user
+   
+   
+O si estás usando un virtualenv, lo mismo pero sin "3" y sin "--user".
 
 
 **Además** de instalarlos, agreguá ``django-heroku`` y ``gunicorn`` al ``requirements.txt``.
