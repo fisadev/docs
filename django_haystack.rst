@@ -5,7 +5,7 @@ Asumimos que
 ============
 
 * Ya tenés tu proyecto django, que funciona localmente (o sea, hacés un ``runserver`` y podés usarlo en tu máquina).
-* Estás usando django 2.0.x o superior.
+* Estás usando django 3.0.x o superior.
 * Tenés un ``requirements.txt`` con las dependencias python de tu proyecto, donde figura django y cualquier otra cosa que haga falta instalar con pip para que funcione, y que se puede usar con un ``pip install -r requirements.txt``. (Recordá que es posible especificar las versiones de tus dependencias en el ``requirements.txt``. Por ejemplo, ``Django==1.9``. Con ``pip freeze`` podés consultar las versiones que tenés instaladas actualmente).
 
 Instalar dependencias
@@ -15,8 +15,10 @@ Primero que nada se necesitan instalar haystack y whoosh:
 
 .. code-block:: bash
 
-    sudo pip install whoosh django-haystack
+    pip3 install whoosh django-haystack --user
 
+   
+O si estás usando un virtualenv, lo mismo pero sin "3" y sin "--user".
 
 **Además** de instalarlo, agreguá ``django-haystack`` y ``whoosh`` al ``requirements.txt``.
 
