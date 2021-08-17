@@ -69,7 +69,7 @@ Además creá un segundo archivo llamado ``runtime.txt`` en la misma ubicación 
 
 .. code-block::
 
-    python-3.7.2
+    python-3.8.11
 
 
 Para probar si tu ``Procfile`` (y ``runtime.txt``) funciona correctamente, ubicate en la raiz de tu **repositorio** y ejecutá esto:
@@ -140,7 +140,7 @@ Y ahora podemos mandar el código de nuestro sitio, y heroku lo va a levantar de
 
 .. code-block:: bash
 
-    git push heroku master
+    git push heroku main
 
 
 Si mirás bien toda la salida de eso (y no falló nada), vas a ver que en un punto dice algo como esto:
