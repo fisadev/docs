@@ -36,7 +36,7 @@ Crear virualenv y activarlo
 
 .. code-block:: bash
 
-    virtualenv venv
+    python3 -m venv venv
     source venv/bin/activate
 
 Clonar/bajar el código del proyecto django
