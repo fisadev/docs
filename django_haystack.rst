@@ -209,9 +209,11 @@ Y además, van a necesitar un par de dependencias nuevas. Agreguen esto al ``req
 
 .. code-block::
 
-    elasticsearch
+    elasticsearch<7.14.0
     certifi
 
+
+(usamos una versión vieja de ``elasticsearch``, compatible con el servicio que hay en Heroku)
 
 Y luego modificamos nuestro ``settings.py``, agregando esto al final:
 
