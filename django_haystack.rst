@@ -56,7 +56,7 @@ Lo segundo es decirle a django **cómo** vamos a usar haystack, sus settings (ha
     }
 
 
-(Asumiendo que tu `settings.py` ya está definida la variable BASE_DIR, apuntando al directorio raíz de tu proyecto. Si no existe, basta con crearla apuntando al directorio donde quieras que se guarden los índices)
+(Asumiendo que tu ``settings.py`` ya está definida la variable BASE_DIR, apuntando al directorio raíz de tu proyecto. Si no existe, basta con crearla apuntando al directorio donde quieras que se guarden los índices)
 
 
 Definiendo índices
