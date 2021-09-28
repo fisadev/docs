@@ -51,9 +51,12 @@ Lo segundo es decirle a django **cómo** vamos a usar haystack, sus settings (ha
     HAYSTACK_CONNECTIONS = {
         'default': {
             'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
-            'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
+            'PATH': BASE_DIR / 'whoosh_index',
         },
     }
+
+
+(Asumiendo que tu `settings.py` ya está definida la variable BASE_DIR, apuntando al directorio raíz de tu proyecto. Si no existe, basta con crearla apuntando al directorio donde quieras que se guarden los índices)
 
 
 Definiendo índices
