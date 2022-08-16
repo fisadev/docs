@@ -86,7 +86,7 @@ No debería mostrar ningún error, y la última linea del resultado debería dec
     [INFO] Booting worker with pid: 25416
 
 
-Si anduvo y sigue corriendo, cerralo con ``Ctrl+c``.
+No hace falta entrar al link que nos muestra ni chequear nada en el sitio, solo validar que el comando anduvo. Si anduvo y sigue corriendo, cerralo con ``Ctrl+c``.
 
 
 Modificaciones a las settings de nuestro proyecto
@@ -103,7 +103,7 @@ Agregar esto al inicio de nuestro ``settings.py`` (después de los imports ya ex
     import django_heroku
 
 
-Y agregar esto al final:
+Y agregar esto al final del settings:
 
 .. code-block:: python
 
