@@ -5,22 +5,20 @@ Asumimos que
 ============
 
 * Ya tenés tu proyecto django, que funciona localmente (o sea, hacés un ``runserver`` y podés usarlo en tu máquina).
-* Estás usando django 3.0.x o superior.
-* Tenés un ``requirements.txt`` con las dependencias python de tu proyecto, donde figura django y cualquier otra cosa que haga falta instalar con pip para que funcione, y que se puede usar con un ``pip install -r requirements.txt``. (Recordá que es posible especificar las versiones de tus dependencias en el ``requirements.txt``. Por ejemplo, ``Django==1.9``. Con ``pip freeze`` podés consultar las versiones que tenés instaladas actualmente).
+* Estás usando django 5.0.x o superior.
+* Estás administrando las dependencias de tu proyecto con `uv <https://docs.astral.sh/uv/getting-started/installation/>`_ (la nueva herramienta recomendada para manejar dependencias en python, que reemplaza a pip/pipenv/poetry). Si no estás usando uv, las mismas cosas se pueden hacer con cualquier mecanismo de manejo de dependencias, pero los ejemplos de este tutorial son con uv.
 
 Instalar dependencias
 =====================
 
-Primero que nada se necesitan instalar haystack y whoosh:
+Primero que nada se necesitan agregar haystack y whoosh como dependencias:
 
 .. code-block:: bash
 
-    pip3 install whoosh django-haystack --user
+    uv add whoosh django-haystack
 
    
-O si estás usando un virtualenv, lo mismo pero sin "3" y sin "--user".
-
-**Además** de instalarlo, agreguá ``django-haystack`` y ``whoosh`` al ``requirements.txt``.
+Luego de hacer eso, no olvides commitear tu ``pyproject.toml`` y ``uv.lock``.
 
 
 Configs básicas en django
@@ -54,9 +52,6 @@ Lo segundo es decirle a django **cómo** vamos a usar haystack, sus settings (ha
             'PATH': BASE_DIR / 'whoosh_index',
         },
     }
-
-
-(Asumiendo que tu ``settings.py`` ya está definida la variable BASE_DIR, apuntando al directorio raíz de tu proyecto. Si no existe, basta con crearla apuntando al directorio donde quieras que se guarden los índices)
 
 
 Definiendo índices
@@ -121,7 +116,7 @@ Haystack ya sabe qué queremos indexar y cómo. Ahora solo le pedimos que cree l
 
 .. code-block:: bash
 
-    python manage.py rebuild_index
+    uv run manage.py rebuild_index
 
 
 Y listo! nuestras noticias están indexadas, ahora podemos hacer búsquedas de texto completo.
@@ -138,6 +133,8 @@ Primero agregamos a nuestras urls:
 
     path('search/', include('haystack.urls')),
 
+
+(quizás tengas que importar ``include``: ``from django.urls import path, include``)
 
 Y luego agregamos nuestro template de búsqueda en ``sitio/templates/search/search.html``, con este contenido:
 
@@ -191,42 +188,38 @@ Cuando los datos cambian, hay que actualizar los índices. Se puede hacer de muc
 
 .. code-block:: bash
 
-    python manage.py update_index
+    uv run manage.py update_index
 
 
-Bonus: En Heroku
-================
+En producción
+=============
 
-En Heroku podemos usar haystack, a partir de un addon que provee un motor de búsqueda bastante bueno (aunque configurado para inglés y con poca posibilidad de modificarle settings).
-Para usarlo, lo primero que necesitamos es agregar el addon a nuestra aplicación de heroku. Dentro de nuestro proyecto, corremos:
+En un entorno productivo normal, cambiarían dos cosas importantes:
 
-.. code-block:: bash
+- Utilizar ElasticSearch o Solr en lugar de Whoosh. Esto no implica dejar de usar Haystack! Haystack soporta todos esos motores de búsqueda. Simplemente implica cambiar las configuraciones de Haystack en el ``settings.py``, y apuntar a una instancia de ElasticSearch o Solr que tengamos disponibles. Whoosh es bastante práctico para probar localmente, pero en general no es un motor lo suficientemente bueno para producción.
+- Programar un indexado periódico, con crons, tareas con un schedule, o mecanismo similar. O alternativamente, indexar selectivamente cuando la data es guardada en nuestra base de datos.
 
-    heroku addons:create searchbox:starter --es_version=2
+Bonus: view para indexar
+========================
 
-
-Y además, van a necesitar un par de dependencias nuevas. Agreguen esto al ``requirements.txt``:
-
-.. code-block::
-
-    elasticsearch<7.14.0
-    certifi
-
-
-(usamos una versión vieja de ``elasticsearch``, compatible con el servicio que hay en Heroku)
-
-Y luego modificamos nuestro ``settings.py``, agregando esto al final:
+Si estás corriendo tu aplicación en un servicio gratuito que no provee un mejor motor de búsqueda que whoosh, y que periódicamente borra los archivos de tu servidor, y que además no te deja taskear comandos periódicamente o acceder por shell para correr ``update_index``, podés crear una vista para indexar manualmente la data:
 
 .. code-block:: python
 
-    if os.environ.get('SEARCHBOX_URL'):
-        HAYSTACK_CONNECTIONS = {
-            'default': {
-                'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
-                'URL': os.environ.get('SEARCHBOX_URL'),
-                'INDEX_NAME': 'documents',
-            },
-        }
+    def rebuild_index(request):
+        from django.core.management import call_command
+        from django.http import JsonResponse
+        try:
+            call_command("rebuild_index", noinput=False)
+            result = "Index rebuilt"
+        except Exception as err:
+            result = f"Error: {err}"
+
+        return JsonResponse({"result": result})
 
 
-Con eso ya podemos usar haystack en heroku. Pero recuerden que además de pushear para hacer el deploy, van a tener que correr los comandos para crear los índices en heroku, usando ``heroku run`` como vimos en la doc de deploy.
+Luego es posible exponer esa view en una url, por ejemplo:
+
+.. code-block:: python
+
+    path('rebuild_index/', views.rebuild_index),
